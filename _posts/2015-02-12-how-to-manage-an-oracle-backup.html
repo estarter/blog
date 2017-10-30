@@ -1,0 +1,43 @@
+---
+layout: post
+title: How to manage an oracle backup
+date: 2015-02-12 11:16:14
+type: post
+published: true
+categories:
+- db
+tags:
+- oracle
+---
+<h2>1. Export</h2>
+<p>To export data from the database, use <strong>exp</strong> tool to create a dump file of the database:</p>
+<pre style="background:#000;color:#f8f8f8;">$ exp USERNAME@DBNAME FILE=mydb.dmp
+</pre>
+<h2>2. Clean up</h2>
+<p>Be aware that importation of the dump over existing database does not rollback data modifications and does not remove data that's been added after the dump. It only recover removed data.</p>
+<p>To perform a clear rollback to the dumped data, one should first drop existing data. To clean up, first generate drop.sql file (that holds drop data instructions) and then run it on target database.</p>
+<pre style="background:#000;color:#f8f8f8;">$ <span style="color:#dad085;">echo</span>  <span style="color:#65b042;">"SELECT 'DROP ' || object_type || ' ' || object_name || ' ' ||
+  CASE(object_type)
+    WHEN 'TABLE'
+    THEN ' CASCADE CONSTRAINTS;' ELSE ';'
+  END
+  FROM user_objects
+  WHERE object_type IN ('TABLE','VIEW','PACKAGE','PROCEDURE','FUNCTION','SEQUENCE');
+ 
+ 
+PURGE RECYCLEBIN;
+ 
+ 
+exit
+"</span>  <span style="color:#e28964;">&gt;</span> generate_drop.sql
+ 
+$ sqlplus USERNAME@DBNAME @generate_drop.sql  <span style="color:#e28964;">|</span> grep -i ^drop <span style="color:#e28964;">&gt;</span> drop.sql <span style="color:#e28964;">;</span> <span style="color:#dad085;">echo</span> <span style="color:#dad085;">exit</span> <span style="color:#e28964;">&gt;&gt;</span> drop.sql <span style="color:#aeaeae;font-style:italic;"># generate drop.sql file</span>
+$ sqlplus USERNAME@DBNAME @drop.sql <span style="color:#aeaeae;font-style:italic;"># drop data</span>
+</pre>
+<h2>3. Import</h2>
+<p>To restore from the backup dump file use <strong>imp</strong> command.</p>
+<pre style="background:#000;color:#f8f8f8;"><span style="color:#aeaeae;font-style:italic;"># import the dump </span>
+$ imp USERNAME@DBNAME FILE=mydb.dmp DESTROY=y IGNORE=y
+<span style="color:#aeaeae;font-style:italic;"># import the dump of another account</span>
+$ imp USERNAME@DBNAME FROMUSER=OTHERUSER TOUSER=USERNAME FILE=otherdb.dmp DESTROY=y IGNORE=y <span style="color:#aeaeae;font-style:italic;"># to import the dump from another database</span>
+</pre>

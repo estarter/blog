@@ -1,0 +1,24 @@
+---
+layout: post
+title: TIG - console interface for git
+date: 2016-02-10 12:25:51
+type: post
+published: true
+categories: []
+tags:
+- git
+- linux
+- tools
+---
+<p>I often need to quickly see git commit history and check on the latest modification. Git log was not interactive enough, so I was launching <a href="https://git-scm.com/docs/gitk">gitk</a> or <a href="http://gitx.frim.nl/">gitx</a> .  It's not so efficient to open new windows when I want to stay in the console. All I want is just a quick glance, come-and-go. Especially if I work on remove machine, over the ssh... Now I'm happy to find the Tig tool. What a strange name? it's a git read backward.</p>
+<blockquote><p>Tig is an ncurses-based text-mode interface for git. It functions mainly as a Git repository browser, but can also assist in staging changes for commit at chunk level and act as a pager for output from various Git commands.</p></blockquote>
+<p>Project links: <a href="https://github.com/jonas/tig">github</a> and <a href="http://jonas.nitro.dk/tig/">homepage</a></p>
+<p class="p1">Installation instruction:</p>
+<pre style="background:#000;color:#f8f8f8;">$ wget http://jonas.nitro.dk/tig/releases/tig-2.1.tar.gz
+$ tar zxf tig-2.1.tar.gz
+$ <span style="color:#dad085;">cd</span> tig-2.1
+$ make prefix=/usr/local
+$ sudo make install prefix=/usr/local
+$ <span style="color:#dad085;">cd</span> ..
+$ rm -rf tig-2.1<span style="color:#e28964;">*</span>
+</pre>

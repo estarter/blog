@@ -1,0 +1,40 @@
+---
+layout: post
+title: How to auto-format WinCC OA ctl
+date: 2014-08-08 11:03:47.000000000 +02:00
+type: post
+published: true
+categories:
+- WinCCOA
+tags:
+- linux
+- tools
+---
+<p>WinCC-OA control language has a similar to C/C++ syntax and its beautify/auto-format tools can be used to reformat ctrl libraries and scripts.</p>
+<p>I'm using <a href="http://astyle.sourceforge.net/">astyle</a> tool for automatic formatting of ctrl scripts. With this command all *.ctl files repulsively will be formatted:</p>
+<pre style="background:#000;color:#f8f8f8;">astyle --style=google --indent=spaces=4 --pad-oper --pad-header --add-brackets --keep-one-line-blocks --indent-switches --suffix=none -r <span style="color:#e28964;">*</span>ctl
+</pre>
+<p>It's more tricky to format the code inside .pnl files. If you have a big piece of control script that for some reason you want to keep inside the panel, you still can pretty-format it. For that, manually extract to code to he tmp.ctl file, then re-format if as following and put it back to the panel.</p>
+<pre style="background:#000;color:#f8f8f8;">sed -i <span style="color:#65b042;">''</span> -e <span style="color:#65b042;">'s/\\"/\"/g'</span> tmp.ctl
+astyle --style=google --indent=spaces=4 --pad-oper --pad-header --add-brackets --keep-one-line-blocks --indent-switches --suffix=none tmp.ctl
+sed -i <span style="color:#65b042;">''</span> -e <span style="color:#65b042;">'s/\"/\\"/g'</span> tmp.ctl
+</pre>
+<h4>AStyle installation instruction</h4>
+<p>Download astyle source code from <a href="http://sourceforge.net/projects/astyle/files/astyle/astyle%202.05.1/">here</a> , then install as following:</p>
+<pre style="background:#000;color:#f8f8f8;"><span style="color:#e28964;">~</span> $ tar zxf astyle_2.05.1_linux.tar.gz
+<span style="color:#e28964;">~</span> $ <span style="color:#dad085;">cd</span> astyle
+<span style="color:#e28964;">~</span>/astyle $ <span style="color:#dad085;">cd</span> build/gcc/
+<span style="color:#e28964;">~</span>/astyle/.../gcc $ make
+g++ -DNDEBUG -O3 -W -Wall -fno-rtti -fno-exceptions -c -o obj/astyle_main.o ../../src/astyle_main.cpp
+g++ -DNDEBUG -O3 -W -Wall -fno-rtti -fno-exceptions -c -o obj/ASBeautifier.o ../../src/ASBeautifier.cpp
+g++ -DNDEBUG -O3 -W -Wall -fno-rtti -fno-exceptions -c -o obj/ASFormatter.o ../../src/ASFormatter.cpp
+g++ -DNDEBUG -O3 -W -Wall -fno-rtti -fno-exceptions -c -o obj/ASEnhancer.o ../../src/ASEnhancer.cpp
+g++ -DNDEBUG -O3 -W -Wall -fno-rtti -fno-exceptions -c -o obj/ASLocalizer.o ../../src/ASLocalizer.cpp
+g++ -DNDEBUG -O3 -W -Wall -fno-rtti -fno-exceptions -c -o obj/ASResource.o ../../src/ASResource.cpp
+g++ -s -o bin/astyle obj/astyle_main.o obj/ASBeautifier.o obj/ASFormatter.o obj/ASEnhancer.o obj/ASLocalizer.o obj/ASResource.o
+<span style="color:#e28964;">~</span>/astyle/.../gcc $ sudo make install
+install -o root -g root -m 755 -d /usr/bin
+install -o root -g root -m 755 -d /usr/share/doc/astyle
+
+</pre>
+<p>&nbsp;</p>

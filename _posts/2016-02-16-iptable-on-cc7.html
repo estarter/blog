@@ -1,0 +1,20 @@
+---
+layout: post
+title: iptable on CC7
+date: 2016-02-16 17:26:40
+type: post
+published: true
+categories:
+- linux
+tags:
+- CC7
+
+---
+<pre style="background:#000;color:#f8f8f8;"><span style="color:#aeaeae;font-style:italic;"># stop firewalld service</span>
+sudo systemctl stop firewalld
+sudo systemctl mask firewalld
+<span style="color:#aeaeae;font-style:italic;"># install iptables service</span>
+sudo yum install -y iptables-services
+sudo systemctl enable iptables
+sudo service start iptables</pre>
+<p><a href="http://stackoverflow.com/questions/24756240/how-can-i-use-iptables-on-centos-7">source</a></p>

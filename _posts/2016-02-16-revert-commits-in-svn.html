@@ -1,0 +1,31 @@
+---
+layout: post
+title: Revert commits in svn
+date: 2016-02-16 14:33:25
+type: post
+published: true
+categories: []
+tags:
+- linux
+- subversion
+---
+<p>Here's how to revert commit modifications of a single file in subversion</p>
+<pre style="background:#000;color:#f8f8f8;">[enice@redu02 fwNode]$ svn log pom.xml
+------------------------------------------------------------------------
+r134022 <span style="color:#e28964;">|</span> jenkinst <span style="color:#e28964;">|</span> 2015-04-01 16:00:30 +0200 (Wed, 01 Apr 2015) <span style="color:#e28964;">|</span> 2 lines
+ 
+[maven-release-plugin] prepare release fwNode-5.0.0
+ 
+------------------------------------------------------------------------
+r134005 <span style="color:#e28964;">|</span> golonka <span style="color:#e28964;">|</span> 2015-04-01 15:35:38 +0200 (Wed, 01 Apr 2015) <span style="color:#e28964;">|</span> 2 lines
+ 
+mavenization
+ 
+------------------------------------------------------------------------
+ 
+[enice@redu02 fwNode]$ svn merge -r 134022:134005 ./pom.xml
+--- Reverse-merging r134022 through r134006 into <span style="color:#65b042;">'pom.xml'</span>:
+U    pom.xml
+ 
+[enice@redu02 fwNode]$ svn commit
+</pre>

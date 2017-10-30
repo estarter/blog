@@ -1,0 +1,106 @@
+---
+layout: post
+title: dotfiles
+date: 2016-02-20 13:08:36
+type: post
+published: true
+categories:
+- git
+- linux
+---
+<p>Readings:</p>
+<ul>
+<li>Unofficial guide: <a href="https://dotfiles.github.io/">https://dotfiles.github.io/</a></li>
+<li>Awesome dotfiles: <a href="https://github.com/webpro/awesome-dotfiles">https://github.com/webpro/awesome-dotfiles</a></li>
+<li>Funny article about how"hidden" or "dot" files was born: <a href="https://plus.google.com/+RobPikeTheHuman/posts/R58WgWwN9jp">a lesson in shortcuts</a></li>
+</ul>
+<p>Implementations:</p>
+<ul>
+<li><a href="http://ohmyz.sh/">oh-my-zsh</a>
+<ul>
+<li>tons of plugins</li>
+</ul>
+</li>
+<li><a href="https://github.com/ryanb/dotfiles">Ryan Bates dotfiles</a>
+<ul>
+<li>minus - ruby installer, not linked</li>
+<li>plus - oh-my-zsh customization</li>
+</ul>
+</li>
+<li><a href="https://github.com/holman/dotfiles">Holman dotfiles</a>
+<ul>
+<li>custom bash installer, ruby-centric</li>
+</ul>
+</li>
+<li><a href="https://github.com/skwp/dotfiles">YADR</a>
+<ul>
+<li>cool but difficult to make customize, ruby-centric</li>
+</ul>
+</li>
+<li><a href="https://github.com/atomantic/dotfiles">https://github.com/atomantic/dotfiles</a>
+<ul>
+<li>osx only</li>
+</ul>
+</li>
+<li><a href="https://github.com/andschwa/dotfiles">https://github.com/andschwa/dotfiles</a>
+<ul>
+<li>uses <a href="https://www.gnu.org/software/stow/">GNU Stow</a> to install files - the files are kept as dotfiles in the repo which is difficult for maintenance</li>
+<li>see also <a href="https://github.com/xero/dotfiles">https://github.com/xero/dotfiles</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/jeffaco/msft-dotfiles">https://github.com/jeffaco/msft-dotfiles</a>
+<ul>
+<li>bash-specific</li>
+</ul>
+</li>
+<li><a href="https://github.com/ashishb/dotfiles/">https://github.com/ashishb/dotfiles/</a>
+<ul>
+<li>bash-specific</li>
+</ul>
+</li>
+<li><a href="https://github.com/dotphiles/dotphiles">https://github.com/dotphiles/dotphiles</a>
+<ul>
+<li>uses <a href="https://github.com/dotphiles/dotsync">https://github.com/dotphiles/dotsync</a> submodule</li>
+</ul>
+</li>
+<li><a href="https://github.com/jh3y/kody">https://github.com/jh3y/kody</a>
+<ul>
+<li>nodejs</li>
+</ul>
+</li>
+<li><a href="https://github.com/thoughtbot/dotfiles">https://github.com/thoughtbot/dotfiles</a>
+<ul>
+<li>ruby centric, needs rcm</li>
+</ul>
+</li>
+</ul>
+<p>Ways dotfiles got installed:</p>
+<ul>
+<li>your own script to copy or link dotfiles
+<ul>
+<li><a href="https://github.com/dotphiles/dotsync">https://github.com/dotphiles/dotsync</a></li>
+</ul>
+</li>
+<li>special program
+<ul>
+<li><a href="https://www.gnu.org/software/stow/">GNU Stow</a></li>
+<li>https://github.com/thoughtbot/rcm</li>
+<li>vcsh &amp; mr</li>
+<li>Ansible</li>
+</ul>
+</li>
+<li>use your lang specific software, e.g. rake or nodejs</li>
+</ul>
+<p>And here it is, what's best for me - <a href="https://github.com/estarter/dotfiles">https://github.com/estarter/dotfiles</a>:</p>
+<ul>
+<li>lightweight and self-contained
+<ul>
+<li>can be installed from zip without internet</li>
+<li>doesn't require 'extra' software like ruby deps</li>
+</ul>
+</li>
+<li>sets zsh as default shell + <a href="https://github.com/clvv/fasd">fasd</a></li>
+<li>brings oh-my-zsh as extra dependency</li>
+<li>works on linux and osx</li>
+<li>includes support for git, docker, maven, jira, python</li>
+</ul>

@@ -1,0 +1,22 @@
+---
+layout: post
+title: How to mount a folder via ssh - sshfs
+date: 2015-06-03 14:41:00.000000000 +02:00
+type: post
+published: true
+categories:
+- linux
+tags:
+- networking
+---
+<p>Anything that you can access via ssh can be mounted to the filesystem using sshfs.</p>
+<p>For a quick test or one-time mount use the command:</p>
+<pre style="background:#000;color:#f8f8f8;">sudo sshfs LOGIN@REMOTE-HOST:REMOTE_PATH LOCAL_PATH
+</pre>
+<p>For the permanent locations, add it to the <em>/etc/fstab</em> file</p>
+<pre style="background:#000;color:#f8f8f8;">$ cat /etc/fstab
+...
+USERNAME@HOSTNAME:/opt /opt/host/hostname fuse.sshfs noauto,users,allow_other,reconnect    0 0
+ 
+$ mount /opt/host/hostname
+</pre>

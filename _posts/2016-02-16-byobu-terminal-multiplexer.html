@@ -1,0 +1,20 @@
+---
+layout: post
+title: byobu terminal multiplexer
+date: 2016-02-16 21:29:00
+type: post
+published: true
+categories: []
+tags:
+- linux
+- tools
+---
+<p><a href="http://byobu.co/">Byobu</a>&nbsp;(based on <a href="https://tmux.github.io/">tmux</a>)&nbsp;lets you switch easily between several programs in one terminal. I use it to have multiple terminals for a single ssh session. Its <a href="https://help.ubuntu.com/community/Byobu">help page</a> contains general information and useful table of key bindings. More details in&nbsp;Dustin <a href="http://blog.dustinkirkland.com/search/label/Byobu">blog</a>.</p>
+<p>One practical benefit of byobu is that it if your ssh session was interrupted you can resurrect byobu session with all the tabs/windows after reconnect. It's like &nbsp;<a href="http://linux.die.net/man/1/screen">screen</a>&nbsp;but with multiple tabs and windows.&nbsp;</p>
+<p>Another feature I like is that I can send a command to all the windows using Shift-F9 hotkey. That is even more attractive if you predefine one or several window sets to start byobu with.</p>
+<p>In Mac improve bash prompt by call <i>byobu-prompt </i>and&nbsp;select Ctrl-A as escape key, then use combinations:</p>
+<ul>
+<li>Ctrl-A and then % for vertical split</li>
+<li>Ctrl-A and then | for horizontal split.</li>
+<li>For the help press: Ctrl-A and then ?</li>
+</ul>

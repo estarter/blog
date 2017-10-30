@@ -1,0 +1,67 @@
+---
+layout: post
+title: Run jenkins job in a docker image
+date: 2016-02-16 13:01:58
+type: post
+published: true
+categories:
+- CI
+tags:
+- docker
+- linux
+---
+<p>Here's the instruction how to build a docker image using jenkins: <a href="https://www.docker.com/sites/default/files/UseCase/RA_CI%20with%20Docker_08.25.2015.pdf">RA_CI with Docker_08.25.2015.pdf</a> . But it how to build/test you software inside a jenkins container?</p>
+<p><strong>Idea</strong> is to create a docker container from the image on each build request, execute the build inside this container and remove it after the execution.</p>
+<h3>Configure a docker runner</h3>
+<p>You need to have a docker server running and available from jenkins server. For that, run the docker with -H parameter:</p>
+<pre><code>docker -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock</code></pre>
+<p>First parameter would make the docker listening on tcp port 2375, needed for remove machine. The second is to keep working locally without specifying -H for every docker command.</p>
+<p>Don't forget to open the port in the firewall:</p>
+<pre><code>sudo iptables -I INPUT -p tcp -m tcp --dport 2375 -j ACCEPT
+sudo service iptables save</code></pre>
+<p>Now test your docker server by executing from remote (jenkins) machine:</p>
+<pre><code>docker -H tcp://docker_server:2375 ps</code></pre>
+<h3>Prepare the image for jenkins</h3>
+<p>The plugin puts some specific requirements for the docker image that to be used. I have an experience with <a href="https://gitlab.com/gitlab-org/gitlab-ci-multi-runner">gitlab-ci runner</a> where it's needed to use CMD instead ENTRYPOINT. In jenkins it's actually required to have sshd up and running in the image and that goes against recommendations for docker images. Jenkins would run the image and then connect into it using ssh to execute the job. Another way to connect is "Docker JNLP launcher" which is experimental by the moment.</p>
+<p>Here's the dockerfile for SCL6 that contains sshd configuration and inherits my original image:</p>
+<pre style="background:#000;color:#f8f8f8;">FROM amerezhi/slc6-winccoa # inherit from original image
+MAINTAINER Alexey Merezhin &lt;amerezhi@cern.ch&gt;
+
+RUN yum install -y openssh-server &amp;&amp; \
+    /usr/bin/ssh-keygen -q -t rsa -f /etc/ssh/ssh_host_rsa_key -C '' -N '' &gt;&amp;/dev/null &amp;&amp; chmod 600 /etc/ssh/ssh_host_rsa_key &amp;&amp; chmod 644 /etc/ssh/ssh_host_rsa_key.pub &amp;&amp;  /sbin/restorecon /etc/ssh/ssh_host_rsa_key.pub &amp;&amp; \
+    /usr/bin/ssh-keygen -q -t rsa1 -f /etc/ssh/ssh_host_key -C '' -N '' &gt;&amp;/dev/null &amp;&amp; chmod 600 /etc/ssh/ssh_host_key &amp;&amp; chmod 644 /etc/ssh/ssh_host_key.pub &amp;&amp;  /sbin/restorecon /etc/ssh/ssh_host_key.pub &amp;&amp; \
+    /usr/bin/ssh-keygen -q -t dsa -f /etc/ssh/ssh_host_dsa_key -C '' -N '' &gt;&amp;/dev/null &amp;&amp; chmod 600 /etc/ssh/ssh_host_dsa_key &amp;&amp; chmod 644 /etc/ssh/ssh_host_dsa_key.pub &amp;&amp;  /sbin/restorecon /etc/ssh/ssh_host_dsa_key.pub
+
+RUN adduser jenkins &amp;&amp; echo "jenkins:jenkins" | chpasswd
+
+RUN sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config &amp;&amp; \
+    sed -i 's/UsePAM yes/UsePAM no/g' /etc/ssh/sshd_config
+
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd", "-D"]
+</pre>
+<h3>Add docker image as a jenkins node</h3>
+<p>1. First install <a href="http://wiki.jenkins-ci.org/display/JENKINS/Docker+Plugin">Docker</a> and <a href="https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin">Token Macro</a> (??? docker plugin was failing without it ???) plugins in your jenkins server.</p>
+<p>2. Add the docker server in jenkins system configuration - "<em>Add a new cloud</em>"/"<em>Docker</em>"</p>
+<p>Specify the connection in "<em>Docker URL</em>" as "http://docker_server:2375". In the docker plugin help page they set "<em>connection timeout</em>" to 5 and "<em>read timeout</em>" to 15.</p>
+<p>3. Click on "Add Docker Template" (aka Image) - here you define the image that would be run per build. Each template is associated by "label" and is an alternative to docker nodes.</p>
+<p>Define "<em>Docker Image</em>" with the image you'd like to use and set the "<em>label</em>" field.</p>
+<p>4. Now it's time to test it. Create a new freestyle jenkins job, enable "<em>Restrict where this project can be run</em>" and put the label of the docker template (from #3). Add a simple "<em>execute shell</em>" action with "<em>echo hello world</em>", save the job and click on build.</p>
+<p>Now it first request a new container from the image, executes the bash and stop the container. Here's how it looks from docker server log:</p>
+<pre style="background:#000;color:#f8f8f8;">$ tail -f /var/log/docker 
+<span style="color:#e28964;">time</span>=<span style="color:#65b042;">"2016-02-16T13:52:37.180755217+01:00"</span> level=info msg=<span style="color:#65b042;">"GET /containers/json?all=0&amp;size=0"</span> 
+<span style="color:#e28964;">time</span>=<span style="color:#65b042;">"2016-02-16T13:52:37.437466025+01:00"</span> level=info msg=<span style="color:#65b042;">"GET /containers/json?all=0&amp;size=0"</span> 
+<span style="color:#e28964;">time</span>=<span style="color:#65b042;">"2016-02-16T13:52:37.448189275+01:00"</span> level=info msg=<span style="color:#65b042;">"GET /images/json?all=0"</span> 
+<span style="color:#e28964;">time</span>=<span style="color:#65b042;">"2016-02-16T13:52:37.760599927+01:00"</span> level=info msg=<span style="color:#65b042;">"POST /containers/create"</span> 
+<span style="color:#e28964;">time</span>=<span style="color:#65b042;">"2016-02-16T13:52:39.258787768+01:00"</span> level=info msg=<span style="color:#65b042;">"POST /containers/f31dd9335ae8992dacea1ce539f5cf53897125fe59d81fb8ee056b48cb070094/start"</span> 
+<span style="color:#e28964;">time</span>=<span style="color:#65b042;">"2016-02-16T13:52:39.543902200+01:00"</span> level=info msg=<span style="color:#65b042;">"GET /containers/f31dd9335ae8992dacea1ce539f5cf53897125fe59d81fb8ee056b48cb070094/json"</span> 
+<span style="color:#e28964;">time</span>=<span style="color:#65b042;">"2016-02-16T13:52:41.639100099+01:00"</span> level=info msg=<span style="color:#65b042;">"GET /version"</span> 
+<span style="color:#e28964;">time</span>=<span style="color:#65b042;">"2016-02-16T13:52:49.268243016+01:00"</span> level=info msg=<span style="color:#65b042;">"POST /containers/f31dd9335ae8992dacea1ce539f5cf53897125fe59d81fb8ee056b48cb070094/stop?t=10"</span> 
+<span style="color:#e28964;">time</span>=<span style="color:#65b042;">"2016-02-16T13:52:51.290620577+01:00"</span> level=info msg=<span style="color:#65b042;">"DELETE /containers/f31dd9335ae8992dacea1ce539f5cf53897125fe59d81fb8ee056b48cb070094?v=0&amp;force=0"</span> 
+</pre>
+<h3>Others</h3>
+<p>Docker plugin allows to see the list of running containers and images of the docker server. You can also stop a running container. Go to the "Manage Jenkins"/"Docker"/"you docker server name".</p>
+<p>If you don't want to test this on production start your own jenkins instance using <a href="https://github.com/jenkinsci/docker">jenkinsci docker image</a></p>
+<pre><code>docker run -p 8080:8080 -p 50000:50000 jenkins</code></pre>
+<p>Another article on this subject: <a href="https://iww.inria.fr/tech-zone/using-docker-to-run-jenkins-jobs/">https://iww.inria.fr/tech-zone/using-docker-to-run-jenkins-jobs/</a></p>

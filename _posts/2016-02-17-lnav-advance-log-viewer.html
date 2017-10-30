@@ -1,0 +1,15 @@
+---
+layout: post
+title: lnav - advance log viewer
+date: 2016-02-17 00:28:12
+type: post
+published: true
+categories: []
+tags:
+- linux
+- tools
+---
+<p class="p1"><strong><a href="http://lnav.org/">lnav</a></strong> is an advanced log file viewer for the small-scale</p>
+<p class="p1">Interesting features - <a href="http://lnav.readthedocs.org/en/latest/commands.html#filtering">filtering</a> , <a href="http://lnav.readthedocs.org/en/latest/commands.html#display">histogram display</a>  and "online" operations - it starts searching/highlighting while you typing.</p>
+<p class="p1">Killer combo:</p>
+<pre><code>lnav -n -c ';select manager, count(*) from winccoa group by manager' -c ':write-csv-to -' test.winccoa.log</code></pre>

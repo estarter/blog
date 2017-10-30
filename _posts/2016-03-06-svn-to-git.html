@@ -1,0 +1,34 @@
+---
+layout: post
+title: svn to git
+date: 2016-03-06 21:49:39
+type: post
+published: true
+categories:
+- git
+---
+<div class="wiki-content">
+<h3 id="git-svn-Initializegitfromexistingsvnrepository">Initialize git from existing svn repository</h3>
+<pre>git svn clone <a class="external-link" href="https://svn.cern.ch/reps/en-ice-svn/trunk/tools/UNICOS/CPC/Baseline/WinCCOA" rel="nofollow">https://svn.cern.ch/reps/en-ice-svn/trunk/tools/UNICOS/CPC/Baseline/WinCCOA</a> # create a new local git repo based on svn repo entry
+cd WinCCOA # go inside it
+git remote add origin https://:@<a class="external-link" href="http://git.cern.ch/kerberos/unicos-cpc-winccoa" rel="nofollow">git.cern.ch/kerberos/unicos-cpc-winccoa</a> # linked new local repo with existing cern repo
+git config --global push.default simple # needed for git 2.0.4
+git config http.postBuffer 524288000
+git push # push local to remote</pre>
+<h3 id="git-svn-Workingprocess">Working process</h3>
+<pre>#pull from the servers
+git svn fetch # download from svn
+git svn rebase # download from svn and resolve conflicts
+git pull # download from git</pre>
+<pre># If git server and svn server get out of step:
+git update-ref refs/remotes/git-svn refs/remotes/origin/master # ???</pre>
+<pre># push to the servers
+git svn dcommit # commit back to svn - don't push the master before executing this command!!
+git push # upload to git</pre>
+<h3 id="git-svn-Furtherreading">Further reading</h3>
+<ul>
+<li><a class="external-link" href="http://git-scm.com/book/en/Git-and-Other-Systems-Git-and-Subversion" rel="nofollow">Git-and-Other-Systems-Git-and-Subversion</a></li>
+<li><a class="external-link" href="http://subgit.com/" rel="nofollow">http://subgit.com/</a></li>
+</ul>
+</div>
+<div id="likes-and-labels-container"></div>

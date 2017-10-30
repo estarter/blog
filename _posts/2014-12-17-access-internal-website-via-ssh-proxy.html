@@ -1,0 +1,31 @@
+---
+layout: post
+title: Access internal CERN site via ssh proxy
+date: 2014-12-17 01:38:47
+type: post
+published: true
+categories:
+- linux, CERN
+tags:
+- networking
+---
+<p><strong>First you would setup the dynamic port forwarding with the default SOCKS port:</strong></p>
+<p><span class="s1">ssh -C -D *:1080 lxplus</span></p>
+<p>The -D option specifies dynamic port forwarding. 1080 is the standard SOCKS port, and *: indicates to listen in all the interfaces (not only 127.0.0.1) . -C enables compression, which speeds the tunnel up.</p>
+<p><strong>Next you would tell Firefox to use your proxy:</strong></p>
+<ul>
+<li>go to Edit -&gt; Preferences -&gt; Advanced -&gt; Network -&gt; Connection -&gt; Settings...</li>
+<li>check "Manual proxy configuration"</li>
+<li>make sure "Use this proxy server for all protocols" is cleared</li>
+<li>clear "HTTP Proxy", "SSL Proxy", "FTP Proxy", and "Gopher Proxy" fields</li>
+<li>enter "127.0.0.1" for "SOCKS Host"</li>
+<li>enter "1080" for Port.</li>
+</ul>
+<p>You can also set Firefox to use the DNS through that proxy, so even your DNS lookups are secure:</p>
+<ul>
+<li>Type in about:config in the <strong>Firefox address</strong> bar</li>
+<li>Find the key called "network.proxy.socks_remote_dns" and set it to true</li>
+</ul>
+<p><strong>Another option is to configure socks proxy for the whole network (Mac OS X):</strong></p>
+<p><img class="alignnone size-full wp-image-64" src="{{ site.baseurl }}/assets/screen-shot-2014-12-17-at-01-40-31.png" alt="Screen Shot 2014-12-17 at 01.40.31" width="668" height="563" /></p>
+<p>The SOCKS proxy will stop working when you close your SSH session.</p>

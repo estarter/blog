@@ -1,0 +1,28 @@
+---
+layout: post
+title: WinCC OA tip and tricks
+date: 2015-03-09 11:21:11
+type: post
+published: true
+categories:
+- WinCCOA
+tags: []
+---
+<h4 id="WinCCOAcontroltipandtricks-DPnames">DP names</h4>
+<pre style="background:#000;color:#f8f8f8;">string alias = unGenericDpFunctions_getAlias(deviceName);
+string deviceName = unGenericDpFunctions_dpAliasToName(alias);
+string deviceName = dpSubStr(full_dpe_name, DPSUB_SYS_DP); <span style="color:#aeaeae;font-style:italic;">// convert dpe name to device name</span>
+string deviceName = dpSubStr(deviceName, DPSUB_DP_EL_CONF_DET_ATT); <span style="color:#aeaeae;font-style:italic;">// removes system name from device name</span>
+</pre>
+<h4>WinCCOA UI responsiveness</h4>
+<p>If UI animation is slow, try following:</p>
+<ol>
+<li>enable data compression in X-Win configuration of the connection (or -C flag in ssh command)</li>
+<li>change graphics system to native or raster (raster is default, but when it is faster?)
+<pre style="background:#000;color:#f8f8f8;">$ WCCOAui -currentproj -p vision/graphicalFrame/unicosHMI.pnl -graphicssystem native
+$ <span style="color:#aeaeae;font-style:italic;"># OR</span>
+$ <span style="color:#99cf50;">export</span> QT_GRAPHICSSYSTEM=<span style="color:#65b042;">"native"</span>
+$ WCCOAui -currentproj -p vision/graphicalFrame/unicosHMI.pnl
+</pre>
+</li>
+</ol>
