@@ -2,9 +2,7 @@
 layout: post
 title: How distinguish beta and official versions in Jenkins release plugin
 date: 2016-02-20 19:20:23
-categories:
-- CI
-- maven
+categories: CI maven
 ---
 <p>We are using jenkins release plugin jobs to perform beta and official releases. The difference between releases are hidden in the defined maven profiles. Thus following <a href="https://wiki.jenkins-ci.org/display/JENKINS/Release+Plugin">Release Plugin documentation</a> it should be RELEASE_VERSION and DEVELOPMENT_VERSION variable plus RELEASE_TYPE drop-down selection to be filled by user.</p>
 <p><strong><img class=" size-full wp-image-600 aligncenter" src="{{ site.baseurl }}/assets/screen-shot-2016-02-20-at-19-17-08.png" alt="Screen Shot 2016-02-20 at 19.17.08" width="1798" height="494" /></strong>To make it prone-save we need to add a unit test that would check the correspondence of RELEASE_TYPE and RELEASE_VERSION. Because we can't make an official release of version 1.0.2-beta-02 neither beta release of 1.3.0.</p>

@@ -2,11 +2,8 @@
 layout: post
 title: Run jenkins job in a docker image
 date: 2016-02-16 13:01:58
-categories:
-- CI
-tags:
-- docker
-- linux
+categories: CI
+tags: docker linux
 ---
 <p>Here's the instruction how to build a docker image using jenkins: <a href="https://www.docker.com/sites/default/files/UseCase/RA_CI%20with%20Docker_08.25.2015.pdf">RA_CI with Docker_08.25.2015.pdf</a> . But it how to build/test you software inside a jenkins container?</p>
 <p><strong>Idea</strong> is to create a docker container from the image on each build request, execute the build inside this container and remove it after the execution.</p>

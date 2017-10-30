@@ -2,8 +2,7 @@
 layout: post
 title: Configure a samba server
 date: 2014-08-06 10:44:45
-categories:
-- linux
+categories: linux
 ---
 
 ```bash
