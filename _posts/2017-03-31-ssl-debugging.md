@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "SSL Debugging"
-date: 2017-03-31 12:26:06.000000000 +02:00
+date: 2017-03-31 12:26:06
 date: 2017-10-11 11:53:57
 categories: linux mac
 ---

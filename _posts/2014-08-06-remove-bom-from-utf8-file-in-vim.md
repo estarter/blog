@@ -1,9 +1,7 @@
 ---
 layout: post
 title: Remove BOM from UTF8 file in vim
-date: 2014-08-06 10:47:04.000000000 +02:00
-type: post
-published: true
+date: 2014-08-06 10:47:04
 categories: []
 tags:
 - vim
