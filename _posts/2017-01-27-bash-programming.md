@@ -2,7 +2,7 @@
 layout: post
 title: bash programming
 date: 2017-01-27 00:03:58
-categories: linux, links
+categories: linux links
 ---
 Useful links
 
