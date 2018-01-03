@@ -1,3 +1,10 @@
+---
+layout: post
+title: "Enable docker remote api"
+date: 2017-10-17 11:17:07
+categories: linux docker
+---
+
 This article describes how to configure a docker to be able to connect to it over tcp.
 
 ## Enable the remote API on a new socket
