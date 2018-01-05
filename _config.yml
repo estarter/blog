@@ -24,3 +24,4 @@ github_username:  estarter
 # Build settings
 markdown: kramdown
 theme: minima
+google_analytics: UA-112017859-1
