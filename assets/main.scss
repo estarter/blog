@@ -37,3 +37,24 @@ $on-laptop:        800px;
 // Import partials from the `minima` theme.
 @import "minima";
 
+// code inside the text
+code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    border-radius: 3px;
+    background-color: rgba(27,31,35,0.05);
+}
+// dedicated code area
+.highlight {
+  .highlighter-rouge & {
+    background: #f6f8fa;
+  }
+  pre > code {
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f6f8fa;
+    border-radius: 3px;
+  }
+}
