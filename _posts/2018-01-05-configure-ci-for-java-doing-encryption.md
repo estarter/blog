@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How to configure CI server for java projects doing encryption"
-date: 2017-10-17 11:17:07
+date: 2018-01-05 18:07
 categories: java ci
 ---
 
