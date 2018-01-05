@@ -17,18 +17,10 @@ title: Dev notes
 email: estarter@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://estarter.github.io/" # the base hostname & protocol for your site
+url: "http://example.com" # the base hostname & protocol for your site
 twitter_username: estarter
 github_username:  estarter
 
 # Build settings
 markdown: kramdown
 theme: minima
-
-plugins:
-  - jekyll-analytics
-
-jekyll_analytics: 
-  GoogleAnalytics:          # Add, if you want to track with Google Analytics
-    id: UA-112017859-1      # Required - replace with your tracking id
-    anonymizeIp: false      # Optional - Default: false - set to true for anonymized tracking
