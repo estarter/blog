@@ -1,0 +1,15 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
+    <xxX>{{site.url}}</xxX>
+    <url>
+        <loc>{{ "/useful_links.html" | prepend: site.baseurl | prepend: site.url }}</loc>
+    </url>
+{% for post in site.posts %}
+  <url>
+    <loc>{{ post.url | prepend: site.baseurl | prepend: site.url }}</loc> 
+  </url>
+{% endfor %}
+</urlset>
