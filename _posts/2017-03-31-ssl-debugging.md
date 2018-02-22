@@ -70,4 +70,10 @@ openssl s_client -connect 172.17.0.1:8444 -prexit -cert key.pem
 ### Troubleshooting
 
 1. The **Signature does not match** error is the symptom that the server identity is unknown to the client, ie the client truststore does not have the server certificate.
-2. Add **-Djavax.net.debug=all** to debug the traffic
+2. Add **-Djavax.net.debug=ssl** or **-Djavax.net.debug=all** to debug the traffic
+3. Add custom private certificate or truststore using java properties:
+
+   -Djavax.net.ssl.keyStoreType=pkcs12 -Djavax.net.ssl.keyStore=clientcertificate.p12 -Djavax.net.ssl.keyStorePassword=CHANGEME
+   
+   -Djavax.net.ssl.trustStoreType=jks -Djavax.net.ssl.trustStore=gridserver.keystore -Djavax.net.ssl.trustStorePassword=CHANGEME
+
