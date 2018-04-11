@@ -1,9 +1,18 @@
 ---
 layout: post
-title: "git diff with ui"
+title: "git diff tricks"
 date: 2017-10-17 11:17:07
 categories: git linux mac tips
 ---
+
+## Exclude files from git diff
+
+To remove pom.xml (or another) files from git diff output, use following command:
+```bash
+git diff COMMIT_TO_COMPARE  -- . ":(exclude)*/pom.xml" ":(exclude)pom.xml"
+```
+
+## Run git diff in GUI
 [git difftool](https://git-scm.com/docs/git-difftool) allows you to use different diff tools to review changes in the git repo.
 
 To see available tools run it as following:
