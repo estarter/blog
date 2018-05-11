@@ -1,3 +1,13 @@
+extract a folder into a separate repo: https://help.github.com/articles/splitting-a-subfolder-out-into-a-new-repository/
+```bash
+$ git filter-branch --prune-empty --subdirectory-filter FOLDER-NAME  BRANCH-NAME 
+# Filter the specified branch in your directory and remove empty commits
+Rewrite 48dc599c80e20527ed902928085e7861e6b3cbe6 (89/89)
+Ref 'refs/heads/BRANCH-NAME' was rewritten
+
+```
+
+merge repos:
 ```bash
 #!/bin/bash
 
