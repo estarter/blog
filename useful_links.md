@@ -11,6 +11,10 @@ JSON:
 * [jid](https://github.com/simeji/jid) - json incremental digger, a ui for json files.
 * [jq](https://stedolan.github.io/jq/) - a lightweight and flexible command-line JSON processor.
 
+YAML:
+
+* [yq](https://github.com/mikefarah/yq) - a portable command-line YAML processor
+
 XML:
 
 * [xmlstarlet](http://xmlstar.sourceforge.net/) - command line XML toolkit.
