@@ -6,5 +6,3 @@ bundle install
 bundle exec jekyll serve
 ```
 
-TODO
-1. make tables look more attractive
