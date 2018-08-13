@@ -5,8 +5,6 @@ date: 2018-01-05 18:07
 categories: java ci
 ---
 
-# How to configure CI server for java projects doing encryption
-
 ## Problem
 You have an CI server building the java projects in encryption domain.
 These projects use a java security libs and requires a lot of random data.

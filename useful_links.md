@@ -2,9 +2,6 @@
 layout: default
 ---
 
-<h1 class="page-heading">
-  <a href="/">Posts</a> | Useful links
-</h1>
 
 JSON:
 
