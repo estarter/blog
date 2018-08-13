@@ -7,5 +7,4 @@ bundle exec jekyll serve
 ```
 
 TODO
-1. make code block look more attractive
-2. make tables look more attractive
+1. make tables look more attractive
