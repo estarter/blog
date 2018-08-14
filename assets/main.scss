@@ -37,6 +37,14 @@ $on-laptop:        800px;
 // Import partials from the `minima` theme.
 // @import "minima";
 
+.svg-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    fill: #{$grey-color};
+    vertical-align: text-middle;
+}
+
 // code inside the text
 code {
     padding: 0.2em 0.4em;
