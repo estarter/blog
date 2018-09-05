@@ -20,6 +20,9 @@ Web services:
 
 * [draw.io](https://www.draw.io/) - free online alternavite to visio
 
+Dev:
+* [mailbucket.io](https://mailbucket.io/) - mail server for testing
+
 Others:
 
 * [sindresorhus/awesome](https://github.com/sindresorhus/awesome) - a curated list of awesome lists.
