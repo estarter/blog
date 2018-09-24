@@ -5,10 +5,10 @@ layout: default
 
 Viewers:
 
-* [jid](https://github.com/simeji/jid) - json incremental digger, a ui for json files.
-* [jq](https://stedolan.github.io/jq/) - a lightweight and flexible command-line JSON processor.
+* [jid](https://github.com/simeji/jid) - json incremental digger, a ui for json files
+* [jq](https://stedolan.github.io/jq/) - a lightweight and flexible command-line JSON processor
 * [yq](https://github.com/mikefarah/yq) - a portable command-line YAML processor
-* [xmlstarlet](http://xmlstar.sourceforge.net/) - command line XML toolkit.
+* [xmlstarlet](http://xmlstar.sourceforge.net/) - command line XML toolkit
 
 Web services:
 
@@ -27,8 +27,8 @@ Tools:
 
 Others:
 
-* [sindresorhus/awesome](https://github.com/sindresorhus/awesome) - a curated list of awesome lists.
-* [pandoc](https://pandoc.org/) - a universal document converter.
+* [sindresorhus/awesome](https://github.com/sindresorhus/awesome) - a curated list of awesome lists
+* [pandoc](https://pandoc.org/) - a universal document converter
 * [Samat Galimov - tools page](https://samat.me/tools/)
 
 Terms:
