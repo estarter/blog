@@ -25,4 +25,4 @@ github_username:  estarter
 markdown: kramdown
 theme: minima
 google_analytics: UA-112017859-1
-highlighter: none
+highlighter: rouge
