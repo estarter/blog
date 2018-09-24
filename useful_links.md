@@ -20,9 +20,9 @@ Dev:
 
 Tools:
 
-* ncdu - cli disk space analyser
-* top / htop / glances - process viewers
-* fc (shell builtin) - for listing, editing and re-executing commands previously entered into an interactive shell
+* `ncdu` - cli disk space analyser
+* `top` / `htop` / `glances` - process viewers
+* `fc` (shell builtin) - for listing, editing and re-executing commands previously entered into an interactive shell
 * [fpp](https://github.com/facebook/pathpicker/) - path picker
 
 Others:
